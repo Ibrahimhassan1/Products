@@ -115,3 +115,20 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
 }
 ```
+
+### [Kotlin coroutines](https://developer.android.com/kotlin/coroutines) for concurrency management:
+First inside the `libs.versions.toml` add versions and plugins reference:
+```
+[versions]
+kotlinxCoroutinesAndroid = "1.8.0"
+
+[libraries]
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+
+```
+Then, apply the Gradle plugin and add these dependencies in your app/build.gradle file:
+```
+dependencies {
+    implementation(libs.kotlinx.coroutines.android)
+}
+```
