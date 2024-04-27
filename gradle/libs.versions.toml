@@ -16,6 +16,7 @@ gson = "2.10.1"
 navigationCompose = "2.7.7"
 hiltNavigationCompose = "1.2.0"
 kotlinxCoroutinesAndroid = "1.8.0"
+sandwichRetrofit = "2.0.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,6 +41,7 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+sandwich-retrofit = { module = "com.github.skydoves:sandwich-retrofit", version.ref = "sandwichRetrofit" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

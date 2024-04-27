@@ -132,3 +132,20 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 }
 ```
+
+### [Sandwich](https://skydoves.github.io/sandwich/) handling API responses and exceptions:
+First inside the `libs.versions.toml` add versions and plugins reference:
+```
+[versions]
+sandwichRetrofit = "2.0.7"
+
+[libraries]
+sandwich-retrofit = { module = "com.github.skydoves:sandwich-retrofit", version.ref = "sandwichRetrofit" }
+
+```
+Then, apply the Gradle plugin and add these dependencies in your app/build.gradle file:
+```
+dependencies {
+    implementation(libs.sandwich.retrofit)
+}
+```
