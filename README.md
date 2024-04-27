@@ -5,13 +5,13 @@ GET	/products
 ### Adding dependencies:
 #### KSP (Kotlin Symbol Processing):
 First, declare the [KSP plugin](https://github.com/google/ksp/releases) in your top level build.gradle.kts file.
-```kotlin
+```
 plugins {
   alias(libs.plugins.ksp) apply false
 }
 ```
 Then inside the `libs.versions.toml` add versions and plugins reference:
-```kotlin
+```
 [versions]
 kspVersion = "1.9.23-1.0.20"
 
@@ -19,14 +19,14 @@ kspVersion = "1.9.23-1.0.20"
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 ```
 Then, enable KSP in your module-level build.gradle.kts file:
-```kotlin
+```
 plugins {
   alias(libs.plugins.ksp)
 }
 ```
 #### Hilt for dependency injection:
 First inside the `libs.versions.toml` add versions and plugins reference:
-```kotlin
+```
 [versions]
 hiltAndroid = "2.51.1"
 
@@ -38,13 +38,13 @@ hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", ve
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
 ```
 Then, add the `hilt-android-gradle-plugin` plugin to your project's root `build.gradle` file:
-```kotlin
+```
 plugins {
   alias(libs.plugins.hilt) apply false
 }
 ```
 Then, apply the Gradle plugin and add these dependencies in your app/build.gradle file:
-```kotlin
+```
 plugins {
   alias(libs.plugins.hilt)
 }
