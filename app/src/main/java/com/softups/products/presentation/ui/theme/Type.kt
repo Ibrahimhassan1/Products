@@ -1,4 +1,4 @@
-package com.softups.products.ui.theme
+package com.softups.products.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,4 +1,4 @@
-package com.softups.products.ui.theme
+package com.softups.products.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
