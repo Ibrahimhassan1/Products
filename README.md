@@ -58,14 +58,14 @@ dependencies {
   ksp(libs.hilt.android.compiler)
 }
 ```
-### [coil](https://coil-kt.github.io/coil/) for image loading:
+### [coil](https://coil-kt.github.io/coil/compose/) for compose image loading:
 First inside the `libs.versions.toml` add versions and plugins reference:
 ```
 [versions]
 coil = "2.6.0"
 
 [libraries]
-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 ```
 Then, apply the Gradle plugin and add these dependencies in your app/build.gradle file:
 ```
@@ -79,19 +79,19 @@ First inside the `libs.versions.toml` add versions and plugins reference:
 ```
 [versions]
 retrofit = "2.11.0"
-gson = "2.10.1"
+converterGson = "2.11.0"
 
 
 [libraries]
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 
 ```
 Then, apply the Gradle plugin and add these dependencies in your app/build.gradle file:
 ```
 dependencies {
   implementation(libs.retrofit)
-  implementation(libs.gson)
+  implementation(libs.converter.gson)
 }
 ```
 
@@ -147,5 +147,21 @@ Then, apply the Gradle plugin and add these dependencies in your app/build.gradl
 ```
 dependencies {
     implementation(libs.sandwich.retrofit)
+}
+```
+### [Okhttp Interceptors](https://square.github.io/okhttp/features/interceptors/) for API Interceptors:
+First inside the `libs.versions.toml` add versions and plugins reference:
+```
+[versions]
+loggingInterceptor = "4.12.0"
+
+[libraries]
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+
+```
+Then, apply the Gradle plugin and add these dependencies in your app/build.gradle file:
+```
+dependencies {
+    implementation(libs.logging.interceptor)
 }
 ```
