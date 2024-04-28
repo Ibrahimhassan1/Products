@@ -58,14 +58,14 @@ dependencies {
   ksp(libs.hilt.android.compiler)
 }
 ```
-### [coil](https://coil-kt.github.io/coil/) for image loading:
+### [coil](https://coil-kt.github.io/coil/compose/) for compose image loading:
 First inside the `libs.versions.toml` add versions and plugins reference:
 ```
 [versions]
 coil = "2.6.0"
 
 [libraries]
-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 ```
 Then, apply the Gradle plugin and add these dependencies in your app/build.gradle file:
 ```

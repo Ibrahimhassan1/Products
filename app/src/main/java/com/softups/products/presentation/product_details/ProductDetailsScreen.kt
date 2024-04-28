@@ -1,6 +1,5 @@
-package com.softups.products.presentation.product_list
+package com.softups.products.presentation.product_details
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,15 +8,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -30,18 +30,15 @@ import com.softups.products.R
 import com.softups.products.presentation.model.Product
 
 @Composable
-fun ProductListScreen(
-    modifier: Modifier = Modifier,
-    viewModel: ProductViewModel = hiltViewModel(),
-    onProductClicked: (Product) -> Unit
+fun ProductDetailsScreen(
+    viewModel: ProductDetailsViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    ProductListScreen(uiState, onProductClicked = onProductClicked)
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    ProductDetailsScreen(uiState = uiState.value)
 }
 
 @Composable
-fun ProductListScreen(uiState: ProductListState, onProductClicked: (Product) -> Unit) {
+fun ProductDetailsScreen(uiState: ProductState) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -51,54 +48,54 @@ fun ProductListScreen(uiState: ProductListState, onProductClicked: (Product) -> 
             CircularProgressIndicator()
         } else if (uiState.isError.isNotEmpty()) {
             Text(text = uiState.isError)
-        } else if (uiState.productList.isEmpty()) {
-            Text(text = "Empty.")
+        } else if (uiState.product == null) {
+            Text(text = "Product not found.")
         } else {
-            ProductList(uiState.productList, onProductClicked = onProductClicked)
+            ProductDetailsItem(uiState.product)
         }
     }
 }
 
 @Composable
-fun ProductList(productList: List<Product>, onProductClicked: (Product) -> Unit) {
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium)),
-        modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
-    ) {
-        items(productList) {
-            ProductItem(product = it, onProductClicked = onProductClicked)
-        }
-    }
-}
-
-@Composable
-fun ProductItem(
-    product: Product,
-    onProductClicked: (Product) -> Unit
+fun ProductDetailsItem(
+    product: Product
 ) {
+    val scrollState = rememberScrollState()
+
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
         ),
         modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = { onProductClicked(product) })
+            .fillMaxSize()
     ) {
         Column(
-            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
+            modifier = Modifier
+                .padding(dimensionResource(id = R.dimen.padding_medium))
+                .verticalScroll(scrollState),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
         ) {
-            AsyncImage(
-                model = product.thumbnail,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(180.dp)
-            )
+            LazyRow(
+                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_medium)),
+                horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
+            ) {
+                items(product.images){
+                    AsyncImage(
+                        model = it,
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .size(280.dp)
+                    )
+                }
+            }
+
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
-            Text(text = product.title, style = MaterialTheme.typography.headlineMedium)
-            Text(text = "$${product.price}", style = MaterialTheme.typography.bodyLarge)
+            Text(text = product.title, style = MaterialTheme.typography.headlineLarge)
+            Text(text = "$${product.description}", style = MaterialTheme.typography.titleLarge)
+            Text(text = "$${product.price}", style = MaterialTheme.typography.headlineMedium)
         }
     }
 }
